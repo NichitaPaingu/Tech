@@ -1,14 +1,17 @@
-### Шаги что нужно сделать 
--git clone https://github.com/NichitaPaingu/Tech.git
--cd .\Tech\
--php composer.phar install
--cp .env.example .env
--npm install
--npm run build
--php artisan migrate
--php artisan db:seed
--php artisan serve
--npm run dev
+### Шаги что нужно сделать
+
+| Шаг | Команда |
+|-----|---------|
+| 1   | `git clone https://github.com/NichitaPaingu/Tech.git` |
+| 2   | `cd .\Tech\` |
+| 3   | `php composer.phar install` |
+| 4   | `cp .env.example .env` |
+| 5   | `npm install` |
+| 6   | `npm run build` |
+| 7   | `php artisan migrate` |
+| 8   | `php artisan db:seed` |
+| 9   | `php artisan serve` |
+| 10  | `npm run dev` |
 
 # Документация API
 
