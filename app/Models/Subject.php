@@ -13,6 +13,6 @@ class Subject extends Model
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'grade_subject_teacher'); // Один предмет может иметь много учителей
+        return $this->belongsToMany(Teacher::class, 'grade_subject_teacher'); 
     }
 }

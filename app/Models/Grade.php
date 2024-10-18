@@ -10,17 +10,17 @@ class Grade extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', // Имя класса
+        'name',
     ];
 
     public function students()
     {
-        return $this->hasMany(Student::class); // Один класс имеет много учеников
+        return $this->hasMany(Student::class);
     }
 
     public function teachers()
     {
-        return $this->belongsToMany(Teacher::class, 'grade_subject_teacher'); // Один класс может иметь много учителей через промежуточную таблицу
+        return $this->belongsToMany(Teacher::class, 'grade_subject_teacher'); 
     }
     public function gradeSubjectTeachers()
     {

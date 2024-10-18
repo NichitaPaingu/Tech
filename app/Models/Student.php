@@ -9,11 +9,11 @@ class Student extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'grade_id']; // Поменяйте 'class_id' на 'grade_id'
+    protected $fillable = ['name', 'grade_id'];
 
     public function classRoom()
     {
-        return $this->belongsTo(Grade::class); // Каждый ученик принадлежит одному классу
+        return $this->belongsTo(Grade::class);
     }
 }
 

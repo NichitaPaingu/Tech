@@ -10,7 +10,10 @@ class LoginController extends Controller
 {
     public function showLoginForm()
     {
-        return view('auth.login'); // Вернуть главную страницу с формой входа
+        if(Auth::user()){
+            return redirect('/dashboard');
+        }
+        return view('auth.login');
     }
 
     public function login(Request $request)
@@ -18,7 +21,7 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::attempt($credentials)) {
-            return redirect('/dashboard'); // Redirect to a secure area
+            return redirect('/dashboard');
         }
 
         return back()->withErrors([
@@ -26,9 +29,9 @@ class LoginController extends Controller
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Auth::logout();
-        return redirect('/'); // Вернуться на главную страницу
+        return redirect('/');
     }
 }

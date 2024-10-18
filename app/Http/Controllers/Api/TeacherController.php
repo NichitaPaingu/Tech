@@ -10,7 +10,7 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        return Teacher::all();
+        return Teacher::where('role', '!=', 'director')->with('subject')->get();
     }
 
     public function store(Request $request)

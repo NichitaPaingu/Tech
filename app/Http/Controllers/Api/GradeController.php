@@ -21,16 +21,14 @@ class GradeController extends Controller
 
         $grade = Grade::create($request->all());
 
-        // Возвращаем созданный класс в формате JSON с кодом 201 (Created)
         return response()->json($grade, 201);
     }
 
     public function show(Grade $grade)
     {
-        // Возвращаем класс в формате JSON
         return response()->json([
             'grade' => $grade,
-            'students' => $grade->students // Предполагая, что есть связь 'students'
+            'students' => $grade->students
         ]);
     }
 
@@ -39,8 +37,6 @@ class GradeController extends Controller
         $request->validate(['name' => 'required|string']);
 
         $grade->update($request->all());
-
-        // Возвращаем обновленный класс в формате JSON
         return response()->json($grade);
     }
 
@@ -52,21 +48,20 @@ class GradeController extends Controller
         return response()->noContent();
     }
     public function getTeacherGrades(Teacher $teacher)
-{
-    // Получаем текущего аутентифицированного пользователя
-    $currentUser = Auth::user();
+    {
+        $currentUser = Auth::user();
+        if (!$currentUser) {
+            return response()->json(['error' => 'Пользователь не аутентифицирован'], 401);
+        }
 
-    // Проверяем, совпадает ли ID учителя с ID текущего пользователя
-    if ($currentUser->id !== $teacher->id) {
-        return response()->json(['error' => 'Доступ запрещен'], 403);
+        if ($currentUser->id !== $teacher->id) {
+            return redirect('/dashboard')->with('error', 'Доступ запрещен');
+        }
+
+        $grades = Grade::whereHas('gradeSubjectTeachers', function ($query) use ($teacher) {
+            $query->where('teacher_id', $teacher->id);
+        })->with('students')->get();
+
+        return response()->json($grades);
     }
-
-    // Получаем классы, связанные с учителем
-    $grades = Grade::whereHas('gradeSubjectTeachers', function ($query) use ($teacher) {
-        $query->where('teacher_id', $teacher->id);
-    })->with('students')->get();
-
-    return response()->json($grades);
-}
-
 }

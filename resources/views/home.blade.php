@@ -1,18 +1,12 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Школа</title>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-<body>
+<x-layout>
+    <h1>Добро пожаловать в нашу школу!</h1>
+    <p>Школа предоставляет качественное образование с отличными учителями.</p>
 
-    <x-layout>
-        <div class="container">
-            
-        </div>
-    </x-layout>
-
-</body>
-</html>
+    @auth
+        <p>Вы вошли как: {{ Auth::user()->name }}</p>
+        <p>Роль: {{ Auth::user()->role == 'director' ? 'Директор' : 'Учитель' }}</p>
+        <p>Для управления классами и учениками перейдите в <a href="{{ route('dashboard') }}">панель управления</a>.</p>
+    @else
+        <p>Пожалуйста, <a href="{{ route('login') }}">войдите</a>, чтобы получить доступ к панели управления и управлению школой.</p>
+    @endauth
+</x-layout>

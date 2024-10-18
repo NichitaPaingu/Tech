@@ -6,17 +6,17 @@
         @auth
             <p>Вы вошли как: {{ Auth::user()->name }}</p>
             <p>Роль: {{ Auth::user()->role == 'director' ? 'Директор' : 'Учитель' }}</p>
-            <p>Упрвление: {{ Auth::user()->role == 'director' ? 'Полное, так как вы являетесь директором' : 'Неполное, вы видите только классы в которых вы преподаете' }}</p>
+            <p>Управление: {{ Auth::user()->role == 'director' ? 'Полное, так как вы являетесь директором' : 'Неполное, вы видите только классы, в которых вы преподаете' }}</p>
         @else
             <p>Пожалуйста, <a href="{{ route('login') }}">войдите</a>, чтобы получить доступ к панели управления.</p>
         @endauth
 
-        <!-- Div для отображения классов -->
         <div id="grades" class="grades-container">
-            <h2>Классы</h2>
-            <div id="grades-list"></div> <!-- Изменено с ul на div -->
+            <h2>Классы {{ Auth::user()->role == 'director' ? 'которые вы можете контролировать' : 'в которых вы приподаете:' . Auth::user()->subject->name  }}</h2>
+            <div id="grades-list"></div>
         </div>
     </div>
+
     <script>
         const authUserId = {{ auth()->user()->id }};
     </script>

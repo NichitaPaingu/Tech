@@ -41,7 +41,7 @@ return [
             'provider' => 'teachers',
         ],
         'api' => [
-            'driver' => 'token', // or 'passport' if you are using Laravel Passport
+            'driver' => 'token',
             'provider' => 'teachers',
         ],
     ],

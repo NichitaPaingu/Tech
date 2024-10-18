@@ -13,22 +13,21 @@ class Teacher extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'password', // Для пароля
-        'role', // 'director' или 'teacher'
+        'password',
+        'role',
         'subject_id',
     ];
     protected $hidden = [
         'password', 'remember_token',
     ];
-    // Связь с классами
     public function grades()
     {
-        return $this->hasMany(GradeSubjectTeacher::class); // Один учитель ведет много классов
+        return $this->hasMany(GradeSubjectTeacher::class);
     }
     // Связь с предметами
     public function subject()
     {
-        return $this->belongsTo(Subject::class); // Связь с предметом
+        return $this->belongsTo(Subject::class); 
     }
 
     // Проверка роли
